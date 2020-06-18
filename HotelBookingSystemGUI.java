@@ -147,7 +147,7 @@ public class HotelBookingSystemGUI extends javax.swing.JFrame {
         });
 
         dateLabel.setFont(new java.awt.Font("Mshtakan", 1, 15)); // NOI18N
-        dateLabel.setText("Choose a Date (DD/MM/YYYY)");
+        dateLabel.setText("Choose a Date (DD-MM-YYYY)");
 
         javax.swing.GroupLayout middlePanelLayout = new javax.swing.GroupLayout(middlePanel);
         middlePanel.setLayout(middlePanelLayout);

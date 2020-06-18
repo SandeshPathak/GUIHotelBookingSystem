@@ -221,7 +221,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Mshtakan" size="15" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Choose a Date (DD/MM/YYYY)"/>
+            <Property name="text" type="java.lang.String" value="Choose a Date (DD-MM-YYYY)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="detailsLabel">
