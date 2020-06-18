@@ -6,6 +6,7 @@
 package GUI;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
@@ -15,10 +16,40 @@ public class Database {
     private Statement statement = null;
     private static final String USER_NAME = "pdc";
     private static final String PASSWORD = "pdc";
-    private static final String URL = "jdbc:derby://localhost:1527/Hotel"; //EMBEDDED DATABASE "jdbc:derby:Hotel";
+    private static final String URL = "jdbc:derby:Bookings;create=true"; //EMBEDDED DATABASE "jdbc:derby:Bookings";
 
     public Database() {
         this.establishConnection();
+
+    }
+
+    public void createSchema() {
+        try {
+
+            statement = connect.createStatement();
+
+            statement.execute("CREATE TABLE ROOM (Id INT NOT NULL GENERATED ALWAYS AS IDENTITY  PRIMARY KEY,NUMBER_OF_GUESTS VARCHAR(255),NUMBER_OF_SINGLEROOM VARCHAR(255),NUMBER_OF_DOUBLEROOM VARCHAR(255),NUMBER_OF_DELUXEROOM VARCHAR(255))");
+        } catch (Exception e) {
+            System.out.println("Room Schema already exists");
+        }
+
+        try {
+
+            statement = connect.createStatement();
+            statement.execute("CREATE TABLE DATES(Id INT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,CHECKIN_DATE DATE,CHECKOUT_DATE DATE)");
+
+        } catch (Exception e) {
+            System.out.println("Date Schema already exists");
+        }
+
+        try {
+
+            statement = connect.createStatement();
+            statement.execute("CREATE TABLE GUESTS (Id INT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,FIRST_NAME VARCHAR(255),LAST_NAME VARCHAR(255),PHONE_NUMBER VARCHAR(255))");
+
+        } catch (Exception e) {
+            System.out.println("Guest schema already exists");
+        }
 
     }
 
@@ -31,8 +62,12 @@ public class Database {
     public void establishConnection() {
 
         try {
-           connect = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-           
+            Object driver = Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+            DriverManager.registerDriver((Driver) driver);
+
+            connect = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+            createSchema();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,5 +112,3 @@ public class Database {
 
 }
 
-
-//'"+"',
